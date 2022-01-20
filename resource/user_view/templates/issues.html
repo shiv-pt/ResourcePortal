@@ -1,0 +1,29 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="centrecss">
+    <div class="container">
+        <h1>Submit your issues below:</h1>
+        <form class="logform" action="/issue/" method="POST">
+            {% csrf_token %}
+            <label for="">ISSUE CATEGORY</label>
+            <select style="cursor:pointer;" class="loginput" name="category">
+                <option value="Paper related">Material related</option>
+                <option value="Profile related">Profile related</option>
+                <option value="Others">Others</option>
+            </select>
+            <br>
+            <br>
+            ISSUE DESCRIPTION: <textarea class="loginput" placeholder="Describe your issue in less than 250 characters" maxlength="250"
+                name="desc" cols="70" rows="5"></textarea>
+            <br>
+            <button class="btn btn-primary" type="submit">Submit</button><br>
+        
+        </form>
+
+    </div>
+</div>
+
+    
+{% endblock content %}

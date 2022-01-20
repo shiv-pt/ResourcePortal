@@ -1,0 +1,114 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+{% if page == 'login' %}
+<div class="centrecss">
+<div class="container" id="container">
+    
+        <div class="form-container sign-up-container">
+            <form class="logform" method="post" action="/register/">
+                {% csrf_token %}
+                <h4>Create Account</h4>
+                <input class="loginput" pattern="[0-9A-Za-Z]{10}" type="text" name="username" placeholder="USN" />
+                <input class="loginput" type="password" name="password" placeholder="Password" />
+                <input class="loginput" type="email" name="email" placeholder="Email" />
+                <input class="loginput" required pattern="^[A-Za-zÀ-ÿ ,.'-]+$" type="text" name="first_name" placeholder="First Name">
+                <input class="loginput" required pattern="^[A-Za-zÀ-ÿ ,.'-]+$" type="text" name="last_name" placeholder="Last Name">
+                <button class="login-button" type="Submit" value="Signup">Sign Up</button> <br>
+                {% if msg2 %}
+                <p style="margin-top: 5px;font-size: small;" class="alert alert-danger">{{msg2.msg}}</p>
+                {% endif %}
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form class="logform" method="post" action="/login/">
+                {% csrf_token %}
+                <h1>Sign in</h1>
+                <input class="loginput" type="text" name="username" placeholder="USN" />
+                <input class="loginput" type="password" name="password" placeholder="Password"/>
+                <a style="margin-bottom: 10px; color: cornflowerblue;" href="{% url 'reset_password' %}">Forgot your password?</a>
+                <button class="login-button" type="Submit" value="Login">Sign In</button>
+                {% if msg %}
+                <p style="margin-top: 10px; font-size: small;" class="alert alert-danger">{{msg.msg}}</p>
+                {% endif %}
+            </form>
+
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1 style="color: white;">Welcome Back!</h1>
+                    <p>To explore all the features. Sign In</p>
+                    <button class="login-button ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1 style="color: white;">Hello, Sir</h1>
+                    <p>Enter your details and make the best use of our e-resource portal.</p>
+                    <button class="login-button ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    
+</div>
+</div>
+
+{% endif %}
+
+{% if page == 'register' %}
+<div class="centrecss">
+    <div class="container right-panel-active" id="container">
+
+        <div class="form-container sign-up-container">
+            <form class="logform" method="post" action="/register/">
+                {% csrf_token %}
+                <h4>Create Account</h4>
+                <input class="loginput" pattern="[0-9A-Za-Z]{10}" type="text" name="username" placeholder="USN" />
+                <input class="loginput" type="password" name="password" placeholder="Password" />
+                <input class="loginput" type="email" name="email" placeholder="Email" />
+                <input class="loginput" required pattern="^[A-Za-zÀ-ÿ ,.'-]+$" type="text" name="first_name"
+                    placeholder="First Name">
+                <input class="loginput" required pattern="^[A-Za-zÀ-ÿ ,.'-]+$" type="text" name="last_name"
+                    placeholder="Last Name">
+                <button class="login-button" type="Submit" value="Signup">Sign Up</button> <br>
+                {% if msg2 %}
+                <p style="margin-top: 5px;font-size: small;" class="alert alert-danger">{{msg2.msg}}</p>
+                {% endif %}
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form class="logform" method="post" action="/login/">
+                {% csrf_token %}
+                <h1>Sign in</h1>
+                <input class="loginput" type="text" name="username" placeholder="USN" />
+                <input class="loginput" type="password" name="password" placeholder="Password" />
+                <a style="margin-bottom: 10px; color: cornflowerblue;" href="{% url 'reset_password' %}">Forgot your
+                    password?</a>
+                <button class="login-button" type="Submit" value="Login">Sign In</button>
+                {% if msg %}
+                <p style="margin-top: 10px; font-size: small;" class="alert alert-danger">{{msg.msg}}</p>
+                {% endif %}
+            </form>
+
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1 style="color: white;">Welcome Back!</h1>
+                    <p>To explore all the features. Sign In</p>
+                    <button class="login-button ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1 style="color: white;">Hello, Sir</h1>
+                    <p>Enter your details and make the best use of our e-resource portal.</p>
+                    <button class="login-button ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endif %}
+
+
+{% endblock content %}

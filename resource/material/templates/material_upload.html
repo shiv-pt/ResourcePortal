@@ -1,0 +1,58 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="centrecss">
+    <div class="container">
+        <br>
+        <h2>Enter the details</h2>
+        <form class="logform" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <br>
+            Title: <input class="loginput" required type="text" name="title"><br>
+            Description: <input class="loginput" type="text" name="description"><br>
+            <label for="">Semester:</label>
+            <select class="loginput" required name="semester">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">Other</option>
+            </select><br>
+            <label for="">Type:</label>
+            <select class="loginput" required name="type" oninput="addinput()">
+                <option selected disabled value="choose">Choose upload type..</option>
+                <option value="document">Document</option>
+                <option value="video">Video</option>
+                <option value="link">Link</option>
+            </select><br>
+            <div class="data">
+                
+            </div><br>
+            Add Thumbnail: <input class="loginput" type="file" name="thumbnail"><br><br>
+            <button class="btn btn-success" type="submit">Upload</button>
+            <br><br>
+        </form>
+    </div>
+</div>
+
+<script>
+    function addinput() {
+        var type = document.getElementsByName('type')[0].value;
+        if (type == 'document') {
+            var data = '<label for="">Document:</label><input class="loginput" type="file" name="document"><br>';
+        } else if (type == 'video') {
+            var data = '<label for="">Video:</label><input class="loginput" type="file" name="video"><br>';
+        } else if (type == 'link') {
+            var data = '<label for="">Link:</label><input class="loginput" type="text" name="link"><br>';
+        }
+        document.getElementsByClassName('data')[0].innerHTML = data;
+    }
+</script>
+
+    
+{% endblock content %}
