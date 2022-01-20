@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="centrecss">
+    <div class="container">
+        <h1>{{member.first_name}} {{member.last_name}}</h1>
+        <p>
+            {{member.usn}}
+        </p>
+        <p>
+            {{member.email}}
+        </p>
+    </div>
+</div>
+
+{% endblock %}
