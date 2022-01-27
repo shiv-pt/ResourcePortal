@@ -37,6 +37,8 @@ def explore(request,id):
 
 def home(request):
     mat = Material.objects.raw('SELECT * FROM material')
+    for i in mat:
+        print(i.like_count)
     return render(request, 'home.html', {'mat': mat})
 
 def userLogout(request):

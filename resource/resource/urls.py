@@ -46,6 +46,9 @@ urlpatterns = [
     path('youruploads/',user_view.youruploads,name='youruploads'),
     path('searching/',user_view.searching,name='searching'),
     path('explore/<int:id>/',views.explore,name='explore'),
+    path('like/<int:id>/',user_view.like,name='like'),
+    path('dislike/<int:id>/',user_view.dislike,name='dislike'),
+    path('report/<int:id>/',user_view.report,name='report'),
 
 ]
 
