@@ -84,12 +84,14 @@ def searching(request):
                     else:
                         matdict[i] = 1
             matdict=sorted(matdict.items(), key=lambda x: x[1], reverse=True)
-            matdict=dict(matdict)
+            print(matdict)
+            matlist=[]
             for i in matdict:
-                print(i.title,matdict[i])
-            if len(matdict)>0:
-                return render(request, 'home.html', {'material':matdict})
+                matlist.append(i[0])
+
+            if len(matlist)>0:
+                return render(request, 'home.html', {'mat':matlist})
             else:
                 return render(request, 'home.html',{'error': 'No results found'})
     
-    return render(request, 'home.html', {'material': material})
+    return render(request, 'home.html', {'mat': material})
