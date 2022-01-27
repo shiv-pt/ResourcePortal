@@ -101,3 +101,32 @@ def searching(request):
                 return render(request, 'home.html',{'error': 'No results found'})
     
     return render(request, 'home.html', {'mat': material})
+
+def like(request,id):
+    if request.user.is_authenticated==False:
+        return redirect('/login/')
+    material=Material.objects.get(id=id)
+    material.like_count+=1
+    member=Member.objects.get(usn=request.user.username)
+    member.likes.add(material)
+    material.save()
+    return redirect('/')
+
+def dislike(request,id):
+    if request.user.is_authenticated==False:
+        return redirect('/login/')
+    material=Material.objects.get(id=id)
+    material.dislike_count+=1
+    member=Member.objects.get(usn=request.user.username)
+    member.dislikes.add(material)
+    material.save()
+    return redirect('/')
+
+def report(request,id):
+    if request.user.is_authenticated==False:
+        return redirect('/login/')
+    material=Material.objects.get(id=id)
+    member=Member.objects.get(usn=request.user.username)
+    member.report.add(material)
+    material.save()
+    return redirect('/')

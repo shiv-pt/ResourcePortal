@@ -52,6 +52,9 @@ urlpatterns = [
     path('issue_status/<int:id>/<str:act>/', admin_view.address_issues, name="issue_status"),
     path('issue_delete/<int:id>/', user_view.issue_delete, name="issue_delete"),
     path('admin_delete/<int:id>/', admin_view.issue_delete, name="admin_delete"),
+    path('like/<int:id>/',user_view.like,name='like'),
+    path('dislike/<int:id>/',user_view.dislike,name='dislike'),
+    path('report/<int:id>/',user_view.report,name='report'),
 
 ]
 
