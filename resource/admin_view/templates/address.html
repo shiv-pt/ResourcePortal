@@ -1,0 +1,66 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="centrecss">
+<div class="container">
+    <h2>All your pending issues:</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Issue ID</th>
+                <th>Issue Category</th>
+                <th>Issue Description</th>
+                <th>Issue Status</th>
+                <th>Issue Date</th>
+                <th>Action</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for issue in issues %}
+            <tr>
+                <td>{{ issue.issue_id }}</td>
+                <td>{{ issue.category }}</td>
+                <td>{{ issue.desc }}</td>
+                <td>{{ issue.issue_status }}</td>
+                <td>{{ issue.time_s }}</td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Change Status<span>
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                          <li><a href="{% url 'issue_status' issue.issue_id 'Working' %}"><pre>  Working</pre></a></li>
+                          <li><a href="{% url 'issue_status' issue.issue_id 'Rectified' %}"><pre>  Rectified</pre></a></li>
+                          <li><a href="{% url 'issue_status' issue.issue_id 'Insolvable' %}"><pre>  Insolvable</pre></a></li>
+                        </ul>
+                      </div>
+                </td>
+                <td>
+                    <a href="{% url 'admin_delete' issue.issue_id %}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination">
+        <span class="step-links">
+            {% if issues.has_previous %}
+            <a class="btn btn-danger" href="?page=1">&laquo; first</a>
+            <a class="btn btn-primary" href="?page={{ issues.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <h5 class="current">
+                Page {{ issues.number }} of {{ issues.paginator.num_pages }}.
+            </h5>
+    
+            {% if issues.has_next %}
+            <a class="btn btn-primary" href="?page={{ issues.next_page_number }}">next</a>
+            <a class="btn btn-danger" href="?page={{ issues.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+</div>
+
+{% endblock content %}

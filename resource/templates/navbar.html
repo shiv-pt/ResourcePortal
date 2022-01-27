@@ -32,7 +32,20 @@
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container-fluid">
-
+            {% if request.user.is_superuser %}
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fa fa-bars"></span> Menu
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav m-auto">
+                    <li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="{% url 'adminissue' %}" class="nav-link">Issues</a></li>
+                    <li class="nav-item"><a href="{% url 'adminflag' %}" class="nav-link">Flags</a></li>
+                    <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link"><span class="glyphicon glyphicon-user login-span"></span>Logout</a></li>
+                </ul>
+            </div>
+            {% else %}
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="fa fa-bars"></span> Menu
@@ -62,6 +75,7 @@
                     {% endif %}
                 </ul>
             </div>
+            {% endif %}
         </div>
     </nav>
     <!-- END nav -->

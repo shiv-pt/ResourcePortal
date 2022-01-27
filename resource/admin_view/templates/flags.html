@@ -1,0 +1,54 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="centrecss">
+<div class="container">
+    <h2>Flagged contents</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Material ID</th>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Name</th>
+                <th>USN</th>
+                <th>Email ID</th>
+                <!--<th>Remove</th>-->
+            </tr>
+        </thead>
+        <tbody>
+            {% for m in material %}
+            <tr>
+                <td>{{ issue.id }}</td>
+                <td>{{ issue.title }}</td>
+                <td>{{ issue.type }}</td>
+                <td>{{ issue.first_name }} {{ issue.last_name }}</td>
+                <td>{{ issue.usn }}</td>
+                <td>{{ issue.email }}</td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination">
+        <span class="step-links">
+            {% if issues.has_previous %}
+            <a class="btn btn-danger" href="?page=1">&laquo; first</a>
+            <a class="btn btn-primary" href="?page={{ issues.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <h5 class="current">
+                Page {{ issues.number }} of {{ issues.paginator.num_pages }}.
+            </h5>
+    
+            {% if issues.has_next %}
+            <a class="btn btn-primary" href="?page={{ issues.next_page_number }}">next</a>
+            <a class="btn btn-danger" href="?page={{ issues.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+</div>
+
+{% endblock content %}

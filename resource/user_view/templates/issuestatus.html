@@ -14,6 +14,7 @@
                     <th>Issue Description</th>
                     <th>Issue Status</th>
                     <th>Issue Date</th>
+                    <th>Remove</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,9 +31,11 @@
                     <td><span class="btn btn-success">{{ issue.issue_status }}</span></td>
                     {% else %}
                     <td><span class="btn btn-danger">{{ issue.issue_status }}</span></td>
-                    {% endif %}
-        
+                    {% endif %}        
                     <td>{{ issue.time_s }}</td>
+                    <td>
+                        <a href="{% url 'issue_delete' issue.issue_id %}" class="btn btn-danger">Delete</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

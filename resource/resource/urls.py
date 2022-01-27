@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
+from admin_view import views as admin_view
 from user_view import views as user_view
 from material import views as material_view
 
@@ -46,6 +47,11 @@ urlpatterns = [
     path('youruploads/',user_view.youruploads,name='youruploads'),
     path('searching/',user_view.searching,name='searching'),
     path('explore/<int:id>/',views.explore,name='explore'),
+    path('adminissue',admin_view.adminissue,name='adminissue'),
+    path('adminflag',admin_view.adminflag,name='adminflag'),
+    path('issue_status/<int:id>/<str:act>/', admin_view.address_issues, name="issue_status"),
+    path('issue_delete/<int:id>/', user_view.issue_delete, name="issue_delete"),
+    path('admin_delete/<int:id>/', admin_view.issue_delete, name="admin_delete"),
 
 ]
 

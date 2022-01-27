@@ -9,6 +9,12 @@ from django.core.paginator import Paginator
 
 # Create your views here.
 
+def issue_delete(request,id):
+    print(id)
+    issue=issues.objects.get(issue_id=id)
+    issue.delete()
+    return redirect("/issuestatus")
+
 def profile(request):
     if request.user.is_authenticated==False:
         return redirect('/login/')
