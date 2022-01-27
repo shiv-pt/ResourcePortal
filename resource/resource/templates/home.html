@@ -2,6 +2,40 @@
 
 {% block content %}
 
-<h1>All materials come here</h1>
+<div class="centrecss">
+    <div class="container-fluid">
+        {% for m in mat %}
+        </br>
+        <div class="card" style="max-width: 2000px; max-height:350px;">
+            <div class="row no-gutters" >
+                <div class="col-sm-5" style="background: #868e96;">
+                    {% if m.thumbnail == "" %}
+                        {% if m.type == "document" %}
+                        <img src="static/images/document.png" class="card-img-top" alt="{{m.title}}" height="350">
+                        {% elif m.type == "link" %}
+                        <img src="static/images/link.png" class="card-img-top" alt="{{m.title}}" height="350">
+                        {% else %}
+                        <img src="static/images/video.png" class="card-img-top" alt="{{m.title}}" height="350">
+                        {% endif %}
+                    {% else %}
+                    <img src="media/{{m.thumbnail}}" class="card-img-top" alt="{{m.title}}" height="350">
+                    {% endif %}
+                </div>
+                <div class="col-sm-7">
+                    <div class="card-body">
+                        <h5 class="card-title">{{m.title}}</h5>
+                        <p class="card-text">{{m.description}}</p>
+                        <a href="#" class="btn btn-success">Like <i class="fa fa-thumbs-up"></i> ({{m.likes_count}}) </a>
+                        <a href="#" class="btn btn-primary">Dislike <i class="fa fa-thumbs-down"></i> ({{m.dislikes_count}}) </a>
+                        <a href="{% url 'explore' m.id %}" class="btn btn-info">Explore <i class="fa fa-external-link"></i></a>
+                        <a href="#" class="btn btn-secondary">Flag <i class="fa fa-flag"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </br>
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock %}

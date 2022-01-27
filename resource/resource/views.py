@@ -3,11 +3,41 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 import os
 from django.contrib.auth import authenticate, login, logout
-
+from django.core.files.storage import FileSystemStorage
 from user_view.models import Member
+from material.models import Material
+from wsgiref.util import FileWrapper
+import mimetypes
+
+def explore(request,id):
+    #mat1 = Material.objects.raw('SELECT * FROM material')
+    mat = Material.objects.raw('SELECT * FROM material WHERE id=%s',[id])
+    print(mat[0].link==None, mat[0].document, mat[0].video)
+    if(mat[0].link!=None):
+        return redirect(mat[0].link)
+    else:
+        fs = FileSystemStorage()
+        if(mat[0].document!=""):
+            filename = mat[0].document
+        else:
+            filename = mat[0].video
+        filename=str(filename)
+        name=filename[12:]
+        filepath = os.path.join(fs.location, filename)
+        try:
+            wrapper = FileWrapper(open(filepath, 'rb'))
+            content_type = mimetypes.guess_type(filepath)[0]
+            response = HttpResponse(wrapper, content_type=content_type)
+            response['Content-Length'] = os.path.getsize(filepath)
+            response['Content-Disposition'] = "attachment; filename=%s" % name
+            return response
+        except:
+            return HttpResponse("File not found")   
+    #return render(request, 'home.html', {'mat': mat1})
 
 def home(request):
-    return render(request, 'home.html')
+    mat = Material.objects.raw('SELECT * FROM material')
+    return render(request, 'home.html', {'mat': mat})
 
 def userLogout(request):
     logout(request)
