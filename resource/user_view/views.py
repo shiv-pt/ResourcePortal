@@ -67,3 +67,29 @@ def removenotification(request,id):
         return redirect('/login/')
     notification.objects.get(notification_id=id).delete()
     return redirect('/notifications/')
+
+def searching(request):
+    material=Material.objects.all()
+    if request.method == 'POST':
+        searchtext = request.POST['searchtext']
+        
+        searchwords=searchtext.split() 
+        if len(searchwords)>0:
+            matdict={}
+            for word in searchwords:
+                material=material.filter(title__icontains=word)
+                for i in material:
+                    if i in matdict.keys():
+                        matdict[i] += 1
+                    else:
+                        matdict[i] = 1
+            matdict=sorted(matdict.items(), key=lambda x: x[1], reverse=True)
+            matdict=dict(matdict)
+            for i in matdict:
+                print(i.title,matdict[i])
+            if len(matdict)>0:
+                return render(request, 'home.html', {'material':matdict})
+            else:
+                return render(request, 'home.html',{'error': 'No results found'})
+    
+    return render(request, 'home.html', {'material': material})

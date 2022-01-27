@@ -44,6 +44,7 @@ urlpatterns = [
     path('notifications/',user_view.notifications,name='notifications'),
     path('removenotification/<int:id>/',user_view.removenotification,name='removenotification'),
     path('youruploads/',user_view.youruploads,name='youruploads'),
+    path('searching/',user_view.searching,name='searching'),
 ]
 
 if settings.DEBUG:

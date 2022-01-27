@@ -10,7 +10,7 @@
             <form class="logform" method="post" action="/register/">
                 {% csrf_token %}
                 <h4>Create Account</h4>
-                <input class="loginput" pattern="[0-9A-Za-Z]{10}" type="text" name="username" placeholder="USN" />
+                <input class="loginput" pattern="[0-9A-Za-Z]{10}" type="text" name="username" placeholder="USN/SAP" />
                 <input class="loginput" type="password" name="password" placeholder="Password" />
                 <input class="loginput" type="email" name="email" placeholder="Email" />
                 <input class="loginput" required pattern="^[A-Za-zÀ-ÿ ,.'-]+$" type="text" name="first_name" placeholder="First Name">
@@ -25,7 +25,7 @@
             <form class="logform" method="post" action="/login/">
                 {% csrf_token %}
                 <h1>Sign in</h1>
-                <input class="loginput" type="text" name="username" placeholder="USN" />
+                <input class="loginput" type="text" name="username" placeholder="USN/SAP" />
                 <input class="loginput" type="password" name="password" placeholder="Password"/>
                 <a style="margin-bottom: 10px; color: cornflowerblue;" href="{% url 'reset_password' %}">Forgot your password?</a>
                 <button class="login-button" type="Submit" value="Login">Sign In</button>
@@ -63,7 +63,7 @@
             <form class="logform" method="post" action="/register/">
                 {% csrf_token %}
                 <h4>Create Account</h4>
-                <input class="loginput" pattern="[0-9A-Za-Z]{10}" type="text" name="username" placeholder="USN" />
+                <input class="loginput" pattern="[0-9A-Za-Z]{10}" type="text" name="username" placeholder="USN/SAP" />
                 <input class="loginput" type="password" name="password" placeholder="Password" />
                 <input class="loginput" type="email" name="email" placeholder="Email" />
                 <input class="loginput" required pattern="^[A-Za-zÀ-ÿ ,.'-]+$" type="text" name="first_name"
@@ -80,7 +80,7 @@
             <form class="logform" method="post" action="/login/">
                 {% csrf_token %}
                 <h1>Sign in</h1>
-                <input class="loginput" type="text" name="username" placeholder="USN" />
+                <input class="loginput" type="text" name="username" placeholder="USN/SAP" />
                 <input class="loginput" type="password" name="password" placeholder="Password" />
                 <a style="margin-bottom: 10px; color: cornflowerblue;" href="{% url 'reset_password' %}">Forgot your
                     password?</a>

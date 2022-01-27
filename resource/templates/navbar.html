@@ -8,9 +8,10 @@
                         <a class="navbar-brand" href="#">Study Kit <span>An E-Resource Portal</span></a>
                     </div>
                     <div class="col-md-6 d-md-flex justify-content-end mb-md-0 mb-3">
-                        <form action="#" class="searchform order-lg-last">
+                        <form enctype="multipart/form-data" action="{% url 'searching' %}" method="POST" class="searchform order-lg-last">
+                            {% csrf_token %}
                             <div class="form-group d-flex">
-                                <input type="text" class="form-control pl-3" placeholder="Search">
+                                <input name="searchtext" type="text" class="form-control pl-3" placeholder="Search">
                                 <button type="submit" placeholder="" class="form-control search"><span
                                         class="fa fa-search"></span></button>
                             </div>
