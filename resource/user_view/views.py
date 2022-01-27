@@ -88,6 +88,7 @@ def searching(request):
             matlist=[]
             for i in matdict:
                 matlist.append(i[0])
+
             if len(matlist)>0:
                 return render(request, 'home.html', {'mat':matlist})
             else:
