@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from numpy import issubsctype
 
 from material.models import Material
+from resource.views import refineddatat
 from user_view.models import notification
 from user_view.models import issues
 from user_view.models import Member
@@ -27,8 +28,9 @@ def youruploads(request):
     usn=request.user.username
     youruploads=Member.objects.get(usn=usn)
     youruploads=youruploads.material.all()
+    youruploads=refineddatat(request,youruploads)
     print(youruploads)
-    return render(request,'youruploads.html',{'youruploads':youruploads})
+    return render(request,'home.html',{'mat':youruploads})
 
 def issue(request):
     if request.user.is_authenticated==False:
@@ -58,7 +60,8 @@ def reportedcontent(request):
     usn=request.user.username
     reportedcontent=Member.objects.get(usn=usn)
     reportedcontent=reportedcontent.report.all() 
-    return render(request,'reportedcontent.html',{'reportedcontent':reportedcontent})
+    reportedcontent=refineddatat(request,reportedcontent)
+    return render(request,'home.html',{'mat':reportedcontent})
 
 def notifications(request):
     if request.user.is_authenticated==False:
@@ -94,7 +97,7 @@ def searching(request):
             matlist=[]
             for i in matdict:
                 matlist.append(i[0])
-
+            matlist=refineddatat(request,matlist)
             if len(matlist)>0:
                 return render(request, 'home.html', {'mat':matlist})
             else:
@@ -106,27 +109,52 @@ def like(request,id):
     if request.user.is_authenticated==False:
         return redirect('/login/')
     material=Material.objects.get(id=id)
-    material.like_count+=1
     member=Member.objects.get(usn=request.user.username)
-    member.likes.add(material)
+    if material in member.likes.all():
+        member.likes.remove(material)
+        material.like_count -= 1
+    elif material in member.dislikes.all():
+        member.dislikes.remove(material)
+        member.likes.add(material)
+        material.like_count += 1
+        material.dislike_count -= 1
+    else:
+        member.likes.add(material)
+        material.like_count += 1
     material.save()
     return redirect('/')
 
 def dislike(request,id):
     if request.user.is_authenticated==False:
         return redirect('/login/')
-    material=Material.objects.get(id=id)
-    material.dislike_count+=1
-    member=Member.objects.get(usn=request.user.username)
-    member.dislikes.add(material)
+    material = Material.objects.get(id=id)
+    member = Member.objects.get(usn=request.user.username)
+    if material in member.dislikes.all():
+        member.dislikes.remove(material)
+        material.dislike_count -= 1
+    elif material in member.likes.all():
+        member.likes.remove(material)
+        member.dislikes.add(material)
+        material.like_count -= 1
+        material.dislike_count += 1
+    else:
+        member.dislikes.add(material)
+        material.dislike_count += 1
     material.save()
     return redirect('/')
 
 def report(request,id):
     if request.user.is_authenticated==False:
         return redirect('/login/')
-    material=Material.objects.get(id=id)
-    member=Member.objects.get(usn=request.user.username)
-    member.report.add(material)
+    material = Material.objects.get(id=id)
+    member = Member.objects.get(usn=request.user.username)
+    if material in member.report.all():
+        member.report.remove(material)
+    else:
+        member.report.add(material)
     material.save()
     return redirect('/')
+
+
+def filter(request):
+    print("filer")

@@ -35,11 +35,60 @@ def explore(request,id):
             return HttpResponse("File not found")   
     #return render(request, 'home.html', {'mat': mat1})
 
-def home(request):
-    mat = Material.objects.raw('SELECT * FROM material')
+def refineddatat(request,mat):
+    user = request.user
+    member = Member.objects.get(usn=user.username)
+    liked = member.likes.all()
+    disliked = member.dislikes.all()
+    report = member.report.all()
+
+    lst = []
     for i in mat:
-        print(i.like_count)
+        temp = {}
+        temp['id'] = i.id
+        temp['title'] = i.title
+        temp['description'] = i.description
+        temp['type'] = i.type
+        temp['thumbnail'] = i.thumbnail
+        temp['semester'] = i.semester
+        temp['link'] = i.link
+        temp['document'] = i.document
+        temp['video'] = i.video
+        temp['like_count'] = i.like_count
+        temp['dislike_count'] = i.dislike_count
+        temp['isliked'] = False
+        temp['isdisliked'] = False
+        temp['isreported'] = False
+
+        lst.append(temp)
+
+        for i in liked:
+            for j in lst:
+                if(i.id == j['id']):
+                    j['isliked'] = True
+        for i in disliked:
+            for j in lst:
+                if(i.id == j['id']):
+                    j['isdisliked'] = True
+        for i in report:
+            for j in lst:
+                if(i.id == j['id']):
+                    j['isreported'] = True
+        for i in lst:
+            print(i['isliked'], i['isdisliked'], i['isreported'])
+    return lst
+
+
+def home(request):
+    mat = Material.objects.all()
+    if request.user.is_authenticated==False:
+        print("not logged in")
+        render(request, 'home.html', {'mat': mat})
+    else:
+        lst=refineddatat(request,mat)
+        return render(request, 'home.html', {'mat': lst})
     return render(request, 'home.html', {'mat': mat})
+    
 
 def userLogout(request):
     logout(request)

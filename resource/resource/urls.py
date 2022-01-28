@@ -55,6 +55,7 @@ urlpatterns = [
     path('like/<int:id>/',user_view.like,name='like'),
     path('dislike/<int:id>/',user_view.dislike,name='dislike'),
     path('report/<int:id>/',user_view.report,name='report'),
+    path('filter/',user_view.filter,name='filter'),
 
 ]
 
