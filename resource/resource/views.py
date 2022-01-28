@@ -84,9 +84,7 @@ def home(request):
     if request.user.is_authenticated==False:
         print("not logged in")
         render(request, 'home.html', {'mat': mat})
-    else:
-        lst=refineddatat(request,mat)
-        return render(request, 'home.html', {'mat': lst})
+    
     return render(request, 'home.html', {'mat': mat})
     
 

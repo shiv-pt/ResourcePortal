@@ -5,7 +5,24 @@
 
 
 <div class="content" style="margin-left: 15px;margin-right: 15px;">
-    
+    <form  enctype="multipart/form-data" action="{% url 'filter' %}" class="logform" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="sel1"> Semester filter: </label>
+            <select class="loginput" name="semester">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+            </select>
+        </div>
+        <button class="btn btn-success" type="submit">Filter</button>
+        </br>
+    </form>
     <div class="containercard">
         <div class="row">
         {% if mat|length == 0 %}
@@ -37,7 +54,7 @@
                     <div class="card-content">
                         <h4 class="card-title">
                             <a href="{% url 'explore' m.id %}">
-                                {{m.title}}
+                                {{m.title}} - Sem: {{m.semester}}
                             </a>
                         </h4>
                         <p style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width:100%;" class="">

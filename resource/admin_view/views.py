@@ -12,7 +12,7 @@ def adminissue(request):
     return render(request, 'address.html', {'issues': issue})
     
 def adminflag(request):
-    material = Material.objects.raw('SELECT * FROM member A, material B, member_report C WHERE A.usn = C.member_id AND C.material_id = B.id')
+    material = Member.objects.raw('SELECT * FROM member A, material B, member_report C WHERE A.usn = C.member_id AND C.material_id = B.id')
     paginator = Paginator(material, 10)
     page = request.GET.get('page')
     material = paginator.get_page(page)

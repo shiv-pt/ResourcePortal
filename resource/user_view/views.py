@@ -157,4 +157,10 @@ def report(request,id):
 
 
 def filter(request):
-    print("filer")
+    material = Material.objects.all()
+    if request.method == 'POST':
+        sem = request.POST['semester']
+        matlist =  Material.objects.raw('SELECT * FROM material WHERE semester = %s',sem)
+        print((matlist))
+        return render(request, "home.html", {"mat": matlist})
+    return render(request, "home.html", {"mat": material})
